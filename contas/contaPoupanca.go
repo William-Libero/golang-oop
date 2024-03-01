@@ -2,14 +2,13 @@ package contas
 
 import "github.com/William-Libero/golang-oop/cliente"
 
-type ContaCorrente struct {
-	Titular       cliente.Titular
-	NumeroAgencia int
-	NumeroConta   int
-	saldo         float64
+type ContaPoupanca struct {
+	Titular                              cliente.Titular
+	NumeroAgencia, NumeroConta, Operacao int
+	saldo                                float64
 }
 
-func (c *ContaCorrente) Sacar(valor float64) string {
+func (c *ContaPoupanca) Sacar(valor float64) string {
 	podeSacar := c.saldo >= valor && valor > 0
 	if podeSacar {
 		c.saldo -= valor
@@ -19,7 +18,7 @@ func (c *ContaCorrente) Sacar(valor float64) string {
 	}
 }
 
-func (c *ContaCorrente) Depositar(valor float64) (string, float64) {
+func (c *ContaPoupanca) Depositar(valor float64) (string, float64) {
 	podeDepositar := valor > 0
 	if podeDepositar {
 		c.saldo += valor
@@ -29,7 +28,7 @@ func (c *ContaCorrente) Depositar(valor float64) (string, float64) {
 	}
 }
 
-func (contaRemetente *ContaCorrente) Transferencia(valor float64, contaDestino *ContaCorrente) string {
+func (contaRemetente *ContaPoupanca) Transferencia(valor float64, contaDestino *ContaPoupanca) string {
 	podeTransferir := contaRemetente.saldo >= valor && valor > 0
 	if podeTransferir {
 		contaRemetente.saldo -= valor
@@ -40,6 +39,6 @@ func (contaRemetente *ContaCorrente) Transferencia(valor float64, contaDestino *
 	}
 }
 
-func (conta *ContaCorrente) GetSaldo() float64 {
+func (conta *ContaPoupanca) GetSaldo() float64 {
 	return conta.saldo
 }
